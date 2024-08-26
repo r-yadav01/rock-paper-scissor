@@ -7,7 +7,13 @@
 </head>
 <body>
     <script>
-        console.log("basic structure complete")
+        function getComputerChoice() {
+            let rand_int = Math.floor(Math.random() * (3-1 + 1) + 1);
+            if (rand_int == 1) return 'rock';
+            else if (rand_int == 2) return 'paper';
+            else return 'scissors';
+        }
+        console.log(getComputerChoice())
     </script>
 </body>
 </html>
