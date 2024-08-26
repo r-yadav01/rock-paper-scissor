@@ -18,7 +18,35 @@
             return prompt("Choose between rock, paper and scissors").toLowerCase();
         }
 
-        
+        let humanScore = 0;
+        let computerScore = 0;
+
+        function playRound(humanChoice, computerChoice) {
+            let result = 0;
+            if (humanChoice == 'rock' && computerChoice == 'scissors') {
+                result = 1;
+            }
+            else if (humanChoice == 'paper' && computerChoice == 'rock') {
+                result = 1;
+            }
+            else if (humanChoice == 'scissors' && computerChoice == 'paper') {
+                result = 1;
+            }
+
+            if (result) {
+                console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+                humanScore++;
+            }
+            else {
+                console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+                computerScore++;
+            }
+        }
+
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+
+        playRound(humanSelection, computerSelection);
     </script>
 </body>
 </html>
