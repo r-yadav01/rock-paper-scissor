@@ -6,59 +6,85 @@
     <title>Document</title>
 </head>
 <body>
+    <div>
+        <button class="rock option">ROCK</button>
+        <button class="paper option">PAPER</button>
+        <button class="scissor option">SCISSOR</button>
+    </div>
+
+    <div id="currentResult"></div>
+    <div id="playerScore">Player: 0</div>
+    <div id="computerScore">Computer: 0</div>
+    <div id="matchResult"></div>
+
     <script>
+        const rock = document.querySelector('.rock');
+        const paper = document.querySelector('.paper');
+        const scissor = document.querySelector('.scissor');
+        const message = document.querySelector('#currentResult');
+        const player = document.querySelector('#playerScore');
+        const computer = document.querySelector('#computerScore');
+        const finalWinner = document.querySelector('#matchResult');
+
+        let humanScore = 0;
+        let computerScore = 0;
+        let finalS = 1;
+
+        rock.addEventListener('click', () => handleClick('rock'));
+        paper.addEventListener('click', () => handleClick('paper'));
+        scissor.addEventListener('click', () => handleClick('scissor'));
+
+        function handleClick(playerChoice) {
+            playRound(playerChoice, getComputerChoice());
+        }
+
+
         function getComputerChoice() {
             let rand_int = Math.floor(Math.random() * (3-1 + 1) + 1);
             if (rand_int == 1) return 'rock';
             else if (rand_int == 2) return 'paper';
-            else return 'scissors';
+            else return 'scissor';
         }
+            
 
-        function getHumanChoice() {
-            return prompt("Choose between rock, paper and scissors").toLowerCase();
-        }
-
-        function playGame() {
-            let humanScore = 0;
-            let computerScore = 0;
-
-            function playRound(humanChoice, computerChoice) {
-                let result = 0;
-                if (humanChoice == 'rock' && computerChoice == 'scissors') {
-                    result = 1;
-                }
-                else if (humanChoice == 'paper' && computerChoice == 'rock') {
-                    result = 1;
-                }
-                else if (humanChoice == 'scissors' && computerChoice == 'paper') {
-                    result = 1;
-                }
-
-                if (result) {
-                    console.log(`You win! ${humanChoice} beats ${computerChoice}`);
-                    humanScore++;
-                }
-                else {
-                    console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-                    computerScore++;
-                }
+        function playRound(humanChoice, computerChoice) {
+            let result = 0;
+            if (humanChoice == 'rock' && computerChoice == 'scissor') {
+                result = 1;
+            }
+            else if (humanChoice == 'paper' && computerChoice == 'rock') {
+                result = 1;
+            }
+            else if (humanChoice == 'scissor' && computerChoice == 'paper') {
+                result = 1;
             }
 
-            for (let i = 0; i < 5; i++) {
-                const humanSelection = getHumanChoice();
-                const computerSelection = getComputerChoice();
-                playRound(humanSelection, computerSelection);
-            }
-
-            if (humanScore > computerScore) {
-                console.log('You win!!')
+            if (finalS) 
+            {    if (result) {
+                message.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
+                humanScore++;
+                player.textContent = `Player: ${humanScore}`;
+                checkFinal();
             }
             else {
-                console.log('You lose!!')
-            }
+                message.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
+                computerScore++;
+                computer.textContent = `Computer: ${computerScore}`;
+                checkFinal();
+            }}
         }
+        
+        function checkFinal() {if (humanScore === 5) {
+            if (humanScore > computerScore) 
+            finalWinner.textContent = `You win!, computer scored ${computerScore}`;
+            finalS = 0;
+        }
+        else if (computerScore === 5) {
+            if (computerScore > humanScore)
+            finalWinner.textContent = `You lost!, you scored ${humanScore}`;
+            finalS = 0;
+        }}
 
-        playGame();
     </script>
 </body>
 </html>
