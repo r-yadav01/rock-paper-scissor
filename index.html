@@ -6,16 +6,63 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <button class="rock option">ROCK</button>
-        <button class="paper option">PAPER</button>
-        <button class="scissor option">SCISSOR</button>
+    <div class="buttons">
+        <button class="rock">ROCK</button>
+        <button class="paper">PAPER</button>
+        <button class="scissor">SCISSOR</button>
     </div>
 
+    <div class="scores">
+        <div id="playerScore">Your scores: 0</div>
+        <div id="computerScore">Computer's scores: 0</div>
+    </div>
     <div id="currentResult"></div>
-    <div id="playerScore">Player: 0</div>
-    <div id="computerScore">Computer: 0</div>
     <div id="matchResult"></div>
+
+    <style>
+        *{
+            font-family: monospace;
+        }
+        body {
+            padding: 25px;
+            background-color: lightgoldenrodyellow;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+        .buttons {
+            display:flex;
+            justify-content: space-around;
+            align-content: center;
+        }
+        button {
+            width: 100px;
+            height: 100px;
+            color: darkred;
+            border-radius:30%;
+            border-color: orange;
+            border-width: 5px;
+            background-color: rgb(246, 255, 122);
+        }
+        #currentResult {
+            display: flex;
+            justify-content: center;
+            font-size: large;
+        }
+
+        .scores {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .scores #playerScore, .scores #computerScore {
+            border-width: 5px;
+            border-color: goldenrod;
+            padding: 10px;
+            margin: 20px;
+            border-style:groove;
+        }
+    </style>
 
     <script>
         const rock = document.querySelector('.rock');
@@ -33,6 +80,7 @@
         rock.addEventListener('click', () => handleClick('rock'));
         paper.addEventListener('click', () => handleClick('paper'));
         scissor.addEventListener('click', () => handleClick('scissor'));
+        
 
         function handleClick(playerChoice) {
             playRound(playerChoice, getComputerChoice());
@@ -63,26 +111,34 @@
             {    if (result) {
                 message.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
                 humanScore++;
-                player.textContent = `Player: ${humanScore}`;
+                player.textContent = `Your scores: ${humanScore}`;
                 checkFinal();
             }
             else {
                 message.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
                 computerScore++;
-                computer.textContent = `Computer: ${computerScore}`;
+                computer.textContent = `Computer's scores: ${computerScore}`;
                 checkFinal();
             }}
         }
         
-        function checkFinal() {if (humanScore === 5) {
-            if (humanScore > computerScore) 
-            finalWinner.textContent = `You win!, computer scored ${computerScore}`;
-            finalS = 0;
+        function checkFinal() {
+            const bodyy = document.querySelector('body');
+            if (humanScore === 5) {
+            if (humanScore > computerScore) {
+                message.textContent = `You win! by ${humanScore - computerScore} points`;
+                message.style.color = 'green';
+                message.style.fontSize = 'xx-large';
+                finalS = 0;
+            }
         }
         else if (computerScore === 5) {
-            if (computerScore > humanScore)
-            finalWinner.textContent = `You lost!, you scored ${humanScore}`;
-            finalS = 0;
+            if (computerScore > humanScore) {
+                message.textContent = `You lost! by ${computerScore - humanScore} points`;
+                message.style.color = 'red';
+                message.style.fontSize = 'xx-large';
+                finalS = 0;
+            }
         }}
 
     </script>
